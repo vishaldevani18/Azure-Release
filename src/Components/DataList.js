@@ -25,10 +25,10 @@ function Users(props) {
     return (
         <div>
             <h1>{props.name}</h1>
-            <p>{props.id}</p>
-            <p>{props.name}</p>
-            <p>{props.city}</p>
-            <p>{props.age}</p>
+            <p>UserId:{props.id}</p>
+            <p>UserName:{props.name}</p>
+            <p>City:{props.city}</p>
+            <p>Age{props.age}</p>
         </div>
     )
 }

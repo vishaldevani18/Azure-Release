@@ -1,0 +1,24 @@
+.mainDiv
+{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.firstDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+}
+.secondDiv{
+
+    display: flex;
+    justify-content: center;
+}
+
+.spinnerDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}

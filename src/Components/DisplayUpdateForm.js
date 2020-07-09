@@ -1,49 +1,66 @@
 import React from 'react'
-import {  message, Select, Modal, Button,  Form, Input, Radio } from 'antd';
+import { message, Select, Modal, Button, Form, Input, Radio } from 'antd';
 
 function DisplayUpdateForm(props) {
 
-        const data=props.data
-        const updatevisible = props.updatevisible
-        const onCancel = props.onCancel
-        const onUpdate = props.onUpdate
-        console.log(props.data);
+    const [form] = Form.useForm();
+    const data = props.data
+    const updatevisible = props.updatevisible
+    const onCancel = props.onCancel
+    const onUpdate = props.onUpdate
 
-     const [form] = Form.useForm();
-     const {Option} = Select;
-     form.resetFields();
+    const { Option } = Select;
+    form.resetFields();
 
-     return (
+    return (
 
         <div>
-         <Modal
+
+            <Modal
 
                 visible={updatevisible}
-                title="Update User"
+                title={"Update User With Id : "+ data._id}
                 style={{ top: 20 }}
                 onCancel={onCancel}
                 footer={[
                     <Button
                         style={{ margin: '0 8px' }}
                         onClick={() => {
+                            form.setFieldsValue({
+                                gender: data.Gender,
+                                firstname: data.FirstName,
+                                lastname: data.LastName,
+                                email: data.Email,
+                                city: data.City,
+                                state: data.State,
+                                country: data.Country,
+                                department: data.Department
+                            });
+                        }}
+                    >
+                        Fill Form
+              </Button>,
+
+                    <Button
+                        style={{ margin: '0 8px' }}
+                        onClick={() => {
                             form.resetFields();
                         }}
                     >
-                        Add Data
-              </Button>,
+                        Reset
+</Button>,
+
                     <Button key="back" onClick=
                         {() => {
                             form
                                 .validateFields()
                                 .then(values => {
-
                                     const id = data._id
-
                                     onUpdate(values, id);
                                     form.resetFields();
                                 })
                                 .catch(info => {
-                                    message.error("" + info);
+                                    message.error("Form Must be Fill With Correct Values");
                                 });
                         }}>
                         Submit
@@ -58,16 +75,6 @@ function DisplayUpdateForm(props) {
                     form={form}
                     layout="vertical"
                     name="form_in_modal"
-                    initialValues={{
-                        gender: data.Gender,
-                        firstname: data.FirstName,
-                        lastname: data.LastName,
-                        email: data.Email,
-                        city: data.City,
-                        state: data.State,
-                        country: data.Country,
-                        department: data.Department
-                    }}
                 >
                     <Form.Item
                         name="firstname"
@@ -164,10 +171,10 @@ function DisplayUpdateForm(props) {
 
                 </Form>
             </Modal>
-            </div>
+        </div>
     );
 
-           
+
 }
 
 export default DisplayUpdateForm

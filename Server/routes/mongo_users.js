@@ -94,7 +94,6 @@ router.get('/:id', async function (req, res) {
 router.patch('/:id', async function (req, res) {
 var update = req.body.data
 
-
         usersSchema.findOneAndUpdate({ _id: req.params.id },
             {$set: {FirstName:update.firstname,
             LastName:update.lastname,

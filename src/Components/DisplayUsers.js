@@ -23,8 +23,7 @@ class DisplayUsers extends Component {
 
     onUpdate = (values, id) => {
 
-        console.log(values)
-      debugger
+     
       API.patch('mongousers/' + id, {
         data: values
     }).then(res => {
@@ -34,15 +33,14 @@ class DisplayUsers extends Component {
         }).catch(err => message.error(""+err)).
             finally(() => this.setState({ loading: false }))
             message.success('User information updated successfully, wait for 3 seconds');
-        setTimeout(() => {
+          setTimeout(() => {
 
-            // const users = [...this.state.users, newUser];
+            
             this.setState({ updatevisible: false })
-            // this.setState({ visible: false});
 
         }, 3000);
 
-    }).catch(err => alert(err)).
+    }).catch(err => message.error(""+ err)).
         finally(() => this.setState({ loading: false }))
 
     }

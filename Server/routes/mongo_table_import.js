@@ -21,12 +21,12 @@ var usersSchema = new Schema(
         },
         Email: {
             type: String,
-            unique: true,
+            // unique: true,
             // match: [/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z])$/, "Please enter alphabets Only"],
             required: [true, "Please enter your Email Address"], 
             trim: true,
             uppercase: true,
-            unique:[true," Email already Exist."]
+            // unique:[true," Email already Exist."]
         },
         City: {
             type: String,
@@ -58,7 +58,7 @@ var usersSchema = new Schema(
             trim: true,
             uppercase: true
         },
-        gender: {
+        Gender: {
             type: String,
             // match: [/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z])$/, "Please enter alphabets Only"],
             required: [true, "Please select your gender"], 
@@ -83,11 +83,6 @@ var usersSchema = new Schema(
         updated_at: {
             type: Date,
             default:Date
-        },
-        role:{
-
-            type:String,
-            default:'user'
         }
         
     },{timestamps:true})

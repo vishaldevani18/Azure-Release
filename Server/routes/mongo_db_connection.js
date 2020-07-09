@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 
 
-let mongo_con = mongoose.connect('mongodb+srv://vishaldevani:VishalDevani@cluster0-j9txe.mongodb.net/vishal_db?retryWrites=true&w=majority', {
+let mongo_con = mongoose.connect('mongodb+srv://vishaldevani:VishalDevani@cluster0-j9txe.mongodb.net/Users?retryWrites=true&w=majority', {
     //  user: 'vishaldevani', pass:'VishalDevani',
     useNewUrlParser: true,
     useCreateIndex: true,

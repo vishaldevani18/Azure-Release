@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import API from './Util/API';
-import { BackTop, message, Button, Row,Result,Col} from 'antd';
-import { PlusSquareTwoTone,FrownTwoTone,AudioOutlined  } from '@ant-design/icons';
+import { BackTop, message, Button, Row, Result, Col } from 'antd';
+import { PlusSquareTwoTone, FrownTwoTone, AudioOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
 import DisplayLoader from './DisplayLoader';
 import { confirmAlert } from 'react-confirm-alert';
@@ -20,55 +20,104 @@ class DisplayUsers extends Component {
 
     }
     onUpdate = (values, id) => {
-        API.patch('mongousers/' + id, {
-            data: values
-        }).then(res => {
-            API.get('mongousers').then(res => {
-                const users = [...res.data.data];
-                this.setState({ users: users })
-            }).catch(err => message.error("" + err)).
-                finally(() => this.setState({ loading: false }))
-            message.success('User information updated successfully, wait for 3 seconds');
-            setTimeout(() => {
+        API.MakeRequestWithBody(`mongousers/${id}`, "PATCH", values,
+            (res) => {
+                API.MakeRequest("mongousers", "GET",
+                    (res) => {
+                        if (res.data.success) {
+                            const users = [...res.data.data];
+                            this.setState({ users: users });
+                            message.success(' updated successfully, wait for 3 seconds');
+                            setTimeout(() => {
+                                this.setState({ updatevisible: false })
+                            }, 3000);
+                        }
+                        else {
+
+                            message.error("" + res.data.err)
+                        }
+                    },
+                    (CatchBlock) => {
+
+                        message.error(" " + CatchBlock)
+                    }
+                    ,
+                    (FinallyBlock) => {
+                        this.setState({ loading: false })
+                    }
+                )
 
 
-                this.setState({ updatevisible: false })
+            },
+            (CatchBlock) => {
 
-            }, 3000);
+                message.error(" " + CatchBlock)
+            }
+            ,
+            (FinallyBlock) => {
+                this.setState({ loading: false, btnloading: false })
+            }
+        );
 
-        }).catch(err => message.error("" + err)).
-            finally(() => this.setState({ loading: false }))
+
+        // API.patch('mongousers/' + id, {
+        //     data: values
+        // }).then(res => {
+        //     API.get('mongousers').then(res => {
+        //         const users = [...res.data.data];
+        //         this.setState({ users: users })
+        //     }).catch(err => message.error("" + err)).
+        //         finally(() => this.setState({ loading: false }))
+        //     message.success('User information updated successfully, wait for 3 seconds');
+        //     setTimeout(() => {
+
+
+        //         this.setState({ updatevisible: false })
+
+        //     }, 3000);
+
+        // }).catch(err => message.error("" + err)).
+        //     finally(() => this.setState({ loading: false }))
 
     }
 
     onCreate = values => {
 
         this.setState({ btnloading: true });
-        API.post(`mongousers/`, {
-            data: values
-        }).then(res => {
-            if (res.data.success) {
-                message.success('User Added Sucessfully');
-                setTimeout(() => {
-                    const newUser = {
-                        _id: res.data.data._id,
-                        ...res.data.data
-                    }
 
-                    const users = [...this.state.users, newUser];
-                    this.setState({ users, visible: false, btnloading: false })
+        API.MakeRequestWithBody("mongousers", "POST", values,
 
-                }, 2000);
+            (res) => {
 
+                if (res.data.success) {
+                    message.success('User Added Sucessfully');
+                    setTimeout(() => {
+                        const newUser = {
+                            _id: res.data.data._id,
+                            ...res.data.data
+                        }
+
+                        const users = [...this.state.users, newUser];
+                        this.setState({ users, visible: false, btnloading: false })
+
+                    }, 2000);
+
+                }
+                else {
+
+                    message.error("" + res.data.err)
+                }
+
+            },
+            (CatchBlock) => {
+
+                message.error(" " + CatchBlock)
             }
-            else {
-
-                message.error("" + res.data.err)
+            ,
+            (FinallyBlock) => {
+                this.setState({ loading: false, btnloading: false })
             }
-
-
-        }).catch(err => message.error("" + err)).
-            finally(() => this.setState({ loading: false, btnloading: false }))
+        );
 
     };
 
@@ -86,15 +135,23 @@ class DisplayUsers extends Component {
                 {
                     label: 'Yes',
                     onClick: () =>
-                        API.delete(`mongousers/${id}`).
-                            then(res => {
-
+                        API.MakeRequest(`mongousers/${id}`, "DELETE",
+                            (res) => {
                                 const currentusers = [...this.state.users];
                                 this.setState({ users: currentusers.filter(x => x._id !== id) })
                                 message.success("Deleted");
-                            }).
-                            catch(err => message.error("" + err)).
-                            finally(() => this.setState({ loading: false }))
+                            },
+                            (CatchBlock) => {
+
+                                message.error(" " + CatchBlock)
+                            }
+                            ,
+                            (FinallyBlock) => {
+                                this.setState({ loading: false })
+                            }
+                        )
+
+
                 },
                 {
                     label: 'No',
@@ -106,23 +163,30 @@ class DisplayUsers extends Component {
 
     componentDidMount() {
 
+        API.MakeRequest("mongousers", "GET",
 
-        API.get('mongousers').then(res => {
+            (res) => {
 
-            if (res.data.success) {
-                const users = [...res.data.data];
-                this.setState({ users: users })
+                if (res.data.success) {
+                    const users = [...res.data.data];
+                    this.setState({ users: users })
+                }
+                else {
+
+                    message.error("" + res.data.err)
+                }
+
+            },
+            (CatchBlock) => {
+
+                message.error(" " + CatchBlock)
             }
-            else {
-
-                message.error("" + res.data.err)
+            ,
+            (FinallyBlock) => {
+                this.setState({ loading: false })
             }
-
-        }).catch(err => message.error(" " + err)).
-            finally(() => this.setState({ loading: false }))
-
+        );
     }
-
     render() {
 
         const { loading } = this.state;
@@ -135,56 +199,55 @@ class DisplayUsers extends Component {
                 <BackTop />
                 {/* This is Inser Button , modal Form Code  */}
                 <div className="p-3">
-                   
-                   <div className="d-flex justify-content-between p-2">
-                       <div className="mr-3">     
-                        <Button type="primary" icon={<PlusSquareTwoTone />} onClick={() => {
-                            this.setState({ visible: true })
-                        }} >
-                            Insert
+
+                    <div className="d-flex justify-content-between p-2">
+                        <div className="mr-3">
+                            <Button type="primary" icon={<PlusSquareTwoTone />} onClick={() => {
+                                this.setState({ visible: true })
+                            }} >
+                                Insert
                         </Button>
                         </div>
                         <div>
-                        <Search
-      placeholder="input search"
-      enterButton="Search"
-      size="medium"
-      suffix={<AudioOutlined
-        style={{
-          fontSize: 16,
-          color: '#1890ff',
-        }}
-      />}
-      onSearch={value => console.log(value)}
-    />
-    </div>
-   </div>
-                        {/* Modal form Display code */}
+                            <Search
+                                placeholder="input search"
+                                enterButton="Search"
+                                size="medium"
+                                suffix={<AudioOutlined
+                                    style={{
+                                        fontSize: 16,
+                                        color: '#1890ff',
+                                    }}
+                                />}
+                                onSearch={value => console.log(value)}
+                            />
+                        </div>
+                    </div>
+                    {/* Modal form Display code */}
 
-                        <DisplayModalForm
-                            visible={this.state.visible}
-                            loading={this.state.btnloading}
-                            onCreate={this.onCreate}
+                    <DisplayModalForm
+                        visible={this.state.visible}
+                        loading={this.state.btnloading}
+                        onCreate={this.onCreate}
+                        onCancel={() => {
+                            this.setState({ visible: false })
+                        }}
+                    />
+
+                    {
+                        <DisplayUpdateForm
+                            updatevisible={this.state.updatevisible}
+                            data={this.state.updateuser}
+                            onUpdate={this.onUpdate}
                             onCancel={() => {
-                                this.setState({ visible: false })
+                                this.setState({ updatevisible: false })
                             }}
                         />
+                    }
 
-                        {
-                            <DisplayUpdateForm
-                                updatevisible={this.state.updatevisible}
 
-                                data={this.state.updateuser}
-                                onUpdate={this.onUpdate}
-                                onCancel={() => {
-                                    this.setState({ updatevisible: false })
-                                }}
-                            />
-                        }
 
-                        
 
-                    
                 </div>
                 {this.state.loading && <DisplayLoader />}
 
@@ -202,12 +265,12 @@ class DisplayUsers extends Component {
                             />)
                         }
                     </Row> :
-                    <Result
-                    icon={<FrownTwoTone />}
-                    title="No Data Available!"
-                   
-                  />
-                            }
+                        <Result
+                            icon={<FrownTwoTone />}
+                            title="No Data Available!"
+
+                        />
+                    }
 
                 </div>
             </div>

@@ -44,13 +44,7 @@ function  DisplayModalForm  ({loading,visible, onCreate, onCancel}){
                 name="form_in_modal"
                 initialValues={{
                     gender: 'male',
-                    firstname: "vishal",
-                    lastname: "devani",
-                    email: "vishal.devani@gmail.com",
-                    city: "amreli",
-                    state: "gujarat",
-                    country: "india",
-                    department: "Designing"
+                   
                 }}
             >
                 <Form.Item

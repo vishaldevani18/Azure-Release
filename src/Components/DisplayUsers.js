@@ -59,26 +59,6 @@ class DisplayUsers extends Component {
             }
         );
 
-
-        // API.patch('mongousers/' + id, {
-        //     data: values
-        // }).then(res => {
-        //     API.get('mongousers').then(res => {
-        //         const users = [...res.data.data];
-        //         this.setState({ users: users })
-        //     }).catch(err => message.error("" + err)).
-        //         finally(() => this.setState({ loading: false }))
-        //     message.success('User information updated successfully, wait for 3 seconds');
-        //     setTimeout(() => {
-
-
-        //         this.setState({ updatevisible: false })
-
-        //     }, 3000);
-
-        // }).catch(err => message.error("" + err)).
-        //     finally(() => this.setState({ loading: false }))
-
     }
 
     onCreate = values => {

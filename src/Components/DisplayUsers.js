@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import API from './Util/API';
-import { BackTop, message, Button, Row,Result } from 'antd';
-import { PlusSquareTwoTone,FrownTwoTone } from '@ant-design/icons';
+import { BackTop, message, Button, Row,Result,Col} from 'antd';
+import { PlusSquareTwoTone,FrownTwoTone,AudioOutlined  } from '@ant-design/icons';
+import { Input } from 'antd';
 import DisplayLoader from './DisplayLoader';
 import { confirmAlert } from 'react-confirm-alert';
 import 'font-awesome/css/font-awesome.min.css';
 import DisplayModalForm from './DisplayModalForm';
 import DisplayUserInformation from './DisplayUserInformation'
 import DisplayUpdateForm from './DisplayUpdateForm'
+const { Search } = Input;
 class DisplayUsers extends Component {
     constructor() {
 
@@ -132,14 +134,31 @@ class DisplayUsers extends Component {
 
                 <BackTop />
                 {/* This is Inser Button , modal Form Code  */}
-                <div className="d-flex justify-content-center p-3">
-                    <Row>
+                <div className="p-3">
+                   
+                   <div className="d-flex justify-content-between p-2">
+                       <div className="mr-3">     
                         <Button type="primary" icon={<PlusSquareTwoTone />} onClick={() => {
                             this.setState({ visible: true })
                         }} >
                             Insert
                         </Button>
-
+                        </div>
+                        <div>
+                        <Search
+      placeholder="input search"
+      enterButton="Search"
+      size="medium"
+      suffix={<AudioOutlined
+        style={{
+          fontSize: 16,
+          color: '#1890ff',
+        }}
+      />}
+      onSearch={value => console.log(value)}
+    />
+    </div>
+   </div>
                         {/* Modal form Display code */}
 
                         <DisplayModalForm
@@ -165,7 +184,7 @@ class DisplayUsers extends Component {
 
                         
 
-                    </Row>
+                    
                 </div>
                 {this.state.loading && <DisplayLoader />}
 

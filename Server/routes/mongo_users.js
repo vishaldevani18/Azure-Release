@@ -7,19 +7,31 @@ router.get('/', async function (req, res) {
     var data = req.userId;  
         usersSchema.find({})
         .then(result => {
-            res.status(200).json({
-                error: false,
-                success: true,
-                msg: "Sucess",
-                verifyId: data,
-                data: result
-            })
+
+            if(result.length===0){
+
+                res.send({err:"No record found",
+                success:false
+             })
+                
+            }
+
+            else {
+                res.status(200).json({
+                    error: false,
+                    success: true,
+                    msg: "Sucess",
+                    verifyId: data,
+                    data: result
+                })    
+            }
+            
         }).catch(err => {
             res.status(500).json({
                 error: true,
                 success: false,
                 msg: "Some Errors.!!!",
-                err: err
+                err: "Err"
             })
         })
 })

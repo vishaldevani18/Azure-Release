@@ -1,8 +1,5 @@
 import axios from 'axios';
-// export default axios.create({
-//     baseURL:'https://vishal-nodejs.herokuapp.com/'
-// })
-let baseURL = 'http://localhost:3001/';
+let baseURL = 'https://vishal-nodejs.herokuapp.com/';
 const API = {
     MakeRequest: function (endpoint, method, SuccessBlock, CatchBlock, FinallyBlock) {
         let url = baseURL + endpoint;

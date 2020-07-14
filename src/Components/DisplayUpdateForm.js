@@ -1,16 +1,18 @@
 import React from 'react'
-import { Button, Form, Input, Modal, Radio, Select, message } from 'antd'
-function DisplayUpdateForm (props) {
+import { Button, Form, Input, Modal, Radio, Select, message } from 'antd';
+
+
+const DisplayUpdateForm =  ({updatevisible,data,onUpdate,onCancel}) => {
+  
   const [form] = Form.useForm()
-  const { data } = props
-  const { updatevisible } = props
-  const { onCancel } = props
-  const { onUpdate } = props
   const { Option } = Select
   form.resetFields()
+   
+  
   return (
     <div>
       <Modal
+       forceRender
         visible={updatevisible}
         title={`Update User With Id : ${data._id}`}
         style={{ top: 20 }}
@@ -70,7 +72,7 @@ function DisplayUpdateForm (props) {
 
           form={form}
           layout="vertical"
-          name="form_in_modal"
+          name="form_in_update"
         >
           <Form.Item
             name="firstname"

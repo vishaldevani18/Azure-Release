@@ -1,12 +1,15 @@
 import React from 'react'
 import { Button, Form, Input, Modal, Radio, Select } from 'antd'
 // Add User Component
-function DisplayModalForm ({ loading, visible, onCreate, onCancel }) {
+const DisplayModalForm = ({ loading,visible,onCancel,onCreate }) => {
+
   const [form] = Form.useForm()
   const { Option } = Select
+  form.resetFields();
   return (
     <div>
       <Modal
+       forceRender
         visible={visible}
         title="Add User"
         style={{ top: 20 }}
@@ -26,6 +29,8 @@ function DisplayModalForm ({ loading, visible, onCreate, onCancel }) {
               form
                 .validateFields()
                 .then((values) => {
+
+                  console.log(values);
                   onCreate(values)
                   form.resetFields()
                 })
@@ -37,12 +42,16 @@ function DisplayModalForm ({ loading, visible, onCreate, onCancel }) {
           </Button>
         ]}
       >
+
+        
         <Form
+         
           form={form}
           layout="vertical"
           name="form_in_modal"
           initialValues={{
-            gender: 'male'
+            gender: 'male',
+            department:'designing'
 
           }}
         >
@@ -114,7 +123,7 @@ function DisplayModalForm ({ loading, visible, onCreate, onCancel }) {
             <Input type="text" placeholder="Country" />
           </Form.Item>
           <Form.Item
-            name="department"
+           name="department"
             hasFeedback
             rules={[
               {
@@ -123,19 +132,28 @@ function DisplayModalForm ({ loading, visible, onCreate, onCancel }) {
               }
             ]}
           >
-            <Select placeholder="Please select a Department" >
+            <Select  placeholder="Please select a Department"  >
               <Option value="designing">Designing</Option>
               <Option value="development">Development</Option>
               <Option value="testing">Testing</Option>
             </Select>
           </Form.Item>
-          <Form.Item name="gender" className="collection-create-form_last-form-item">
+         
+            
+            <Form.Item   
+            hasFeedback
+            name="gender"
+            rules={[
+              {
+                required: true,
+                message: 'Please select Department!'
+              } 
+            ]}>
             <Radio.Group>
-              <Radio value="male">Male</Radio>
-              <Radio value="female">Female</Radio>
-            </Radio.Group>
-          </Form.Item>
-
+              <Radio value="male" >Male</Radio>
+              <Radio value="female" > Female</Radio>
+              </Radio.Group>
+              </Form.Item>
         </Form>
       </Modal>
 

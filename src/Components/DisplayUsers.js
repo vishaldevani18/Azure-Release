@@ -1,19 +1,21 @@
 import React, { Component } from 'react'
 import API from './Util/API';
-import { BackTop, message, Button, Row, Result, Col } from 'antd';
+import { BackTop, message, Button, Row, Result } from 'antd';
 import { PlusSquareTwoTone, FrownTwoTone, AudioOutlined } from '@ant-design/icons';
+
 import { Input } from 'antd';
 import DisplayLoader from './DisplayLoader';
 import { confirmAlert } from 'react-confirm-alert';
 import 'font-awesome/css/font-awesome.min.css';
 import DisplayModalForm from './DisplayModalForm';
-import DisplayUserInformation from './DisplayUserInformation'
+import DisplayUserInformation from './DisplayUserInformation';
 import DisplayUpdateForm from './DisplayUpdateForm'
 const { Search } = Input;
-class DisplayUsers extends Component {
-    constructor() {
 
-        super()
+class DisplayUsers extends Component {
+    constructor(props) {
+
+        super(props)
         this.state = { btnloading: false, visible: false, updatevisible: false, loading: true, users: [], updateuser: {} }
         this.handleDelete = this.handleDelete.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
@@ -206,6 +208,7 @@ class DisplayUsers extends Component {
                     {/* Modal form Display code */}
 
                     <DisplayModalForm
+                   
                         visible={this.state.visible}
                         loading={this.state.btnloading}
                         onCreate={this.onCreate}
@@ -214,6 +217,17 @@ class DisplayUsers extends Component {
                         }}
                     />
 
+
+ {/* <Practice
+          
+          visible={this.state.visible}
+          onCancel={"a"}
+          onCreate={this.onCreate}
+        /> */}
+
+
+
+
                     {
                         <DisplayUpdateForm
                             updatevisible={this.state.updatevisible}
@@ -221,7 +235,7 @@ class DisplayUsers extends Component {
                             onUpdate={this.onUpdate}
                             onCancel={() => {
                                 this.setState({ updatevisible: false })
-                            }}
+                                }}
                         />
                     }
 

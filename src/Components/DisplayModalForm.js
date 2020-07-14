@@ -30,7 +30,7 @@ const DisplayModalForm = ({ loading,visible,onCancel,onCreate }) => {
                 .validateFields()
                 .then((values) => {
 
-                  console.log(values);
+                  
                   onCreate(values)
                   form.resetFields()
                 })

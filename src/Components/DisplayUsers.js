@@ -15,7 +15,7 @@ const { Search } = Input;
 class DisplayUsers extends Component {
     constructor(props) {
 
-        console.log(process.env.REACT_APP_BASEURL);
+       
 
         super(props)
         this.state = { btnloading: false, visible: false, updatevisible: false, loading: true, users: [], updateuser: {} }

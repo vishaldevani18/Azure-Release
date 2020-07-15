@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Form, Input, Modal, Radio, Select, message } from 'antd';
 
 
-const DisplayUpdateForm =  ({updatevisible,data,onUpdate,onCancel}) => {
+const DisplayUpdateForm =  ({loading,updatevisible,data,onUpdate,onCancel}) => {
   
   const [form] = Form.useForm()
   const { Option } = Select
@@ -47,7 +47,7 @@ const DisplayUpdateForm =  ({updatevisible,data,onUpdate,onCancel}) => {
                         Reset
           </Button>,
 
-          <Button key="back" onClick=
+          <Button key="back" loading={loading} onClick=
             {() => {
               form
                 .validateFields()

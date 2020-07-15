@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseURL = 'https://vishal-nodejs.herokuapp.com/'
+const baseURL = process.env.REACT_APP_BASEURL
 const API = {
   MakeRequest (endpoint, method, SuccessBlock, CatchBlock, FinallyBlock) {
     const url = baseURL + endpoint

@@ -31,8 +31,8 @@ const DisplayModalForm = ({ loading,visible,onCancel,onCreate }) => {
                 .then((values) => {
 
                   
-                  onCreate(values)
-                  form.resetFields()
+                  onCreate(values,form)
+                  
                 })
                 .catch((info) => {
 
@@ -51,8 +51,7 @@ const DisplayModalForm = ({ loading,visible,onCancel,onCreate }) => {
           name="form_in_modal"
           initialValues={{
             gender: 'male',
-            department:'designing'
-
+            department:'designing',
           }}
         >
           <Form.Item

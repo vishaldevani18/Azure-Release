@@ -15,6 +15,8 @@ const { Search } = Input;
 class DisplayUsers extends Component {
     constructor(props) {
 
+        console.log(process.env.REACT_APP_BASEURL);
+
         super(props)
         this.state = { btnloading: false, visible: false, updatevisible: false, loading: true, users: [], updateuser: {} }
         this.handleDelete = this.handleDelete.bind(this);
@@ -22,6 +24,8 @@ class DisplayUsers extends Component {
 
     }
     onUpdate = (values, id) => {
+        this.setState({ btnloading: true });
+
         API.MakeRequestWithBody(`mongousers/${id}`, "PATCH", values,
             (res) => {
                 API.MakeRequest("mongousers", "GET",
@@ -31,7 +35,7 @@ class DisplayUsers extends Component {
                             this.setState({ users: users });
                             message.success(' updated successfully, wait for 3 seconds');
                             setTimeout(() => {
-                                this.setState({ updatevisible: false })
+                                this.setState({ updatevisible: false,btnloading: false })
                             }, 3000);
                         }
                         else {
@@ -63,8 +67,8 @@ class DisplayUsers extends Component {
 
     }
 
-    onCreate = values => {
-
+    onCreate = (values,form) => {
+       
         this.setState({ btnloading: true });
 
         API.MakeRequestWithBody("mongousers", "POST", values,
@@ -73,6 +77,7 @@ class DisplayUsers extends Component {
 
                 if (res.data.success) {
                     message.success('User Added Sucessfully');
+                    // form.resetFields();
                     setTimeout(() => {
                         const newUser = {
                             _id: res.data.data._id,
@@ -80,7 +85,7 @@ class DisplayUsers extends Component {
                         }
 
                         const users = [...this.state.users, newUser];
-                        this.setState({ users, visible: false, btnloading: false })
+                        this.setState({ users, visible: false })
 
                     }, 2000);
 
@@ -231,6 +236,7 @@ class DisplayUsers extends Component {
                     {
                         <DisplayUpdateForm
                             updatevisible={this.state.updatevisible}
+                            loading={this.state.btnloading}
                             data={this.state.updateuser}
                             onUpdate={this.onUpdate}
                             onCancel={() => {

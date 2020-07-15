@@ -15,8 +15,6 @@ const { Search } = Input;
 class DisplayUsers extends Component {
     constructor(props) {
 
-       
-
         super(props)
         this.state = { btnloading: false, visible: false, updatevisible: false, loading: true, users: [], updateuser: {} }
         this.handleDelete = this.handleDelete.bind(this);
@@ -45,7 +43,7 @@ class DisplayUsers extends Component {
                     },
                     (CatchBlock) => {
 
-                        message.error(" " + CatchBlock)
+                        message.error("zxcxvx")
                     }
                     ,
                     (FinallyBlock) => {

@@ -8,8 +8,8 @@ function DisplayUserInformation (props) {
   const { info } = props
   return (
     <Col lg={{ span: 8 }} md={{ span: 12 }} sm={{ span: 24 }} xs={{ span: 24 }} className="mb-4">
-      <Card title={info.Gender === 'MALE' ? <i className="fa fa-male " aria-hidden="true"> {`${info.FirstName} ${info.LastName}`} </i> : <i className="fa fa-female " aria-hidden="true"> {`${info.FirstName} ${info.LastName}`} </i>}
-        extra={<small>{info._id}</small>}
+      <Card title={`${info.FirstName} ${info.LastName}`}
+        extra={info.Gender === 'MALE' ? <i className="fa fa-male " aria-hidden="true"></i> : <i className="fa fa-female " aria-hidden="true"></i>}
         loading={loading}
         hoverable={true}
         actions={[

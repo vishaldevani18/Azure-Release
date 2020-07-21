@@ -16,6 +16,7 @@ const DisplayModalForm = ({ loading,visible,onCancel,onCreate }) => {
         onCancel={onCancel}
         footer={[
           <Button
+          danger
           key="reset"
             style={{ margin: '0 8px' }}
             onClick={() => {
@@ -24,7 +25,7 @@ const DisplayModalForm = ({ loading,visible,onCancel,onCreate }) => {
           >
                     Reset
           </Button>,
-          <Button type="primary" key="submit" loading={loading} onClick=
+          <Button className="btn btn-primary" type="primary" key="submit" loading={loading} onClick=
             {() => {
               form
                 .validateFields()

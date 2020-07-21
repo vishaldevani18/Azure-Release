@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
 import API from './Util/API';
 import { BackTop, message, Button, Row, Result } from 'antd';
-import { PlusSquareTwoTone, FrownTwoTone, AudioOutlined } from '@ant-design/icons';
-
-import { Input } from 'antd';
+import { PlusSquareTwoTone, FrownTwoTone} from '@ant-design/icons';
 import DisplayLoader from './DisplayLoader';
 import { confirmAlert } from 'react-confirm-alert';
 import 'font-awesome/css/font-awesome.min.css';
 import DisplayModalForm from './DisplayModalForm';
 import DisplayUserInformation from './DisplayUserInformation';
 import DisplayUpdateForm from './DisplayUpdateForm'
-const { Search } = Input;
+
 
 class DisplayUsers extends Component {
     constructor(props) {
@@ -118,8 +116,11 @@ class DisplayUsers extends Component {
             message: 'Are you sure You Want To Delete',
             buttons: [
                 {
+                  
                     label: 'Yes',
+                    className:"btn btn-danger  bg-danger",
                     onClick: () =>
+                    
                         API.MakeRequest(`mongousers/${id}`, "DELETE",
                             (res) => {
                                 const currentusers = [...this.state.users];
@@ -140,6 +141,7 @@ class DisplayUsers extends Component {
                 },
                 {
                     label: 'No',
+                    className:"btn btn-primary  bg-primary",
                     onClick: () => message.error("Request Cancel")
                 }
             ]
@@ -193,20 +195,7 @@ class DisplayUsers extends Component {
                                 Insert
                         </Button>
                         </div>
-                        <div>
-                            <Search
-                                placeholder="input search"
-                                enterButton="Search"
-                                size="medium"
-                                suffix={<AudioOutlined
-                                    style={{
-                                        fontSize: 16,
-                                        color: '#1890ff',
-                                    }}
-                                />}
-                                onSearch={value => console.log(value)}
-                            />
-                        </div>
+                        
                     </div>
                     {/* Modal form Display code */}
 

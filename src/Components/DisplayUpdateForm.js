@@ -14,11 +14,12 @@ const DisplayUpdateForm =  ({loading,updatevisible,data,onUpdate,onCancel}) => {
       <Modal
        forceRender
         visible={updatevisible}
-        title={`Update User With Id : ${data._id}`}
+        title={`Update User  : ${data.FirstName}`}
         style={{ top: 20 }}
         onCancel={onCancel}
         footer={[
           <Button
+          type="primary" ghost
             key="submit"
             style={{ margin: '0 8px' }}
             onClick={() => {
@@ -38,6 +39,7 @@ const DisplayUpdateForm =  ({loading,updatevisible,data,onUpdate,onCancel}) => {
           </Button>,
 
           <Button
+          danger
             key="reset"
             style={{ margin: '0 8px' }}
             onClick={() => {
@@ -47,7 +49,7 @@ const DisplayUpdateForm =  ({loading,updatevisible,data,onUpdate,onCancel}) => {
                         Reset
           </Button>,
 
-          <Button key="back" loading={loading} onClick=
+          <Button type="primary" key="back" loading={loading} onClick=
             {() => {
               form
                 .validateFields()

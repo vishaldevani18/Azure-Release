@@ -7,17 +7,13 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'window-latest'
 
 steps:
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
-
-- powershell: |
-    & "$(build.sourcesDirectory)/res/UseNode5.ps1"
-    displayName: (azure-pipelines-task-lib) use node 5.10.1
 
 - script: |
     npm install

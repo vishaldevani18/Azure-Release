@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubantu-latest'
 
 steps:
 - task: NodeTool@0
